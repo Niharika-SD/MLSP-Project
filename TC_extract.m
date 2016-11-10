@@ -17,6 +17,7 @@
          ROI = mask.*patient(k).fmridata(:,:,:,:);
          patient(k).TC(:,j) = avg_TC(ROI,mask);
      end
+     fprintf('Patient %d data processed \n.',k);
  end
  
  save patient
