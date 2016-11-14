@@ -9,7 +9,7 @@
  patient =[];
  class =max(max(max(aal.img)));
  
- for k =1:1
+ for k =1:size(filename,2)
      
      nii = load_nii(filename(k).name);
      fmridata = nii.img;
@@ -32,16 +32,17 @@
      for i=1:size(TC,2)
         for j  = 1:size(TC,2)
               
-            [R,P]= corr(double(TC(:,i)),double(TC(:,j)),'type','Pearson');
+            [R,P]= corrcoef(TC(:,i),TC(:,j));
             patient.corr(i,j).R = R;
             patient.corr(i,j).P = P;
             patient.corr_coeff(i,j) = trace(R);
         end
      end
      
-     save(str1,'patient');
+     save(patient())
      fprintf('Patient %d data processed \n.',k);
-     
  end
+ compute_corr.m
+ save patient.mat
  
  
