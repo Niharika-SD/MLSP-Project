@@ -1,4 +1,4 @@
- aal  = load_nii('aal_MNI_V4.nii');
+aal  = load_nii('aal_MNI_V4.nii');
  
  datafolder = ('/mnt/share/7E1EC9C11EC972A7/fmridata');
  filename = dir([datafolder '/*/*/Functionals/*.nii.gz']);
@@ -9,7 +9,7 @@
  patient =[];
  class =max(max(max(aal.img)));
  
- for k =1:1
+ for k =1:size(filename,1)
      
      nii = load_nii(filename(k).name);
      fmridata = nii.img;
@@ -18,11 +18,17 @@
      TC  = zeros(156,class);
      %average time course extraction
      for v = 1:class
-         
-         mask = (aal.img ==v);
-         mask(:,:,:,1:n) = 1;
-        ROI = mask.*fmridata(:,:,:,:);
-        TC(:,v) = avg_TC(ROI,mask);
+        mask = zeros(size(aal.img));
+        index = find(aal.img==v);
+        mask(index) = 1;
+        mask_4D = zeros(size(nii.img));
+        
+      for j=1:size(nii.img,4)
+          mask_4D(:,:,:,j) = mask;
+      end
+       
+      ROI =nii.img .* int16(mask_4D);
+      TC(:,v) = avg_TC(ROI,mask_4D);
      
      end
      

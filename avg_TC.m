@@ -8,7 +8,7 @@ n =size(ROI,4);
 time_course = zeros(n,1);
 
 for i =1:n
-    time_course(i,:) =sum(sum(sum(ROI(:,:,:,i))))/sum(sum(sum(mask(:,:,:,1))));
+    time_course(i,1) =sum(sum(sum(ROI(:,:,:,i))))/sum(sum(sum(mask(:,:,:,1))));
 end
 
 end
