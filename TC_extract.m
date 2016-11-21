@@ -3,8 +3,7 @@ aal  = load_nii('aal_MNI_V4.nii');
  datafolder = ('/mnt/share/7E1EC9C11EC972A7/fmridata');
  filename = dir([datafolder '/*/*/Functionals/*.nii.gz']);
  
- %datafolder
- cd patient_data/
+
  
  patient =[];
  class =max(max(max(aal.img)));
@@ -27,11 +26,11 @@ aal  = load_nii('aal_MNI_V4.nii');
           mask_4D(:,:,:,j) = mask;
       end
        
-      ROI =nii.img .* int16(mask_4D);
+      ROI =nii.img .* (mask_4D);
       TC(:,v) = avg_TC(ROI,mask_4D);
      
      end
-     
+     cd patient_data/
      %correlation calculation
      str1 = strcat('patient',num2str(k),'corr.mat');
      
@@ -47,7 +46,7 @@ aal  = load_nii('aal_MNI_V4.nii');
      
      save(str1,'patient');
      fprintf('Patient %d data processed \n.',k);
-     
+     cd ..
  end
  
  
