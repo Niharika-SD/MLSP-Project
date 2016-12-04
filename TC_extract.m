@@ -6,7 +6,7 @@ aal  = load_nii('aal_MNI_V4.nii');
  patient =[];
  class =max(max(max(aal.img)));
  
- for k =14:size(filename,1)
+ for k =1:14
      str1 =  [filename(k).folder '/' filename(k).name];
      nii = load_nii(str1);
      fmridata = nii.img;
